@@ -43,3 +43,15 @@ catch (e:unknown) {
         console.error(e)
     }
 }
+
+// Almost Top Type : Object
+
+let val: object = { status : 'ok'}
+// val = 'foo' // string not an object
+// val = null     // null is not an onject (???)
+val = () => 'ok'
+
+let response =
+    {success: 'ok', data: []} as {success: string; data: unknown } | { error: string, code: number}
+
+val = response
