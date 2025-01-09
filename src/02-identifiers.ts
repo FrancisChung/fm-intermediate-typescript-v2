@@ -1,3 +1,5 @@
+
+// identifiers
 interface Fruit {
     name: string
     mass: number
@@ -18,5 +20,15 @@ function Fruit(kind: string) {
             throw new Error(`Unknown kind ${kind} of fruit. Not Supported`)
     }
 }
+
+//Namespace
+namespace Fruit {
+    function createBanana(): Fruit {
+        return Fruit('banana')
+    }
+
+    createBanana()
+}
+
 
 export default {banana, Fruit}
