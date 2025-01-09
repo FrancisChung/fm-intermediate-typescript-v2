@@ -30,5 +30,17 @@ namespace Fruit {
     createBanana()
 }
 
+//Tests
+const is_a_value = 4
+type is_a_type = {}
+namespace is_a_namespace {
+    const foo = 17
+}
+
+const x = is_a_value
+const z: is_a_type = {}
+is_a_namespace
+
+
 
 export default {banana, Fruit}
