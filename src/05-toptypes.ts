@@ -21,7 +21,25 @@ if (typeof myUnknown === 'string') {
     myUnknown
 } else {
     myUnknown
-
-
 }
 
+// Practical Uses of Top Types
+
+function doSomethingRisky() {
+    if (Math.random() > 0.5) {return ok}
+    else if (Math.random() > 0.5 {throw new Error('Bad Luck')}
+    else throw 'Really bad luck;'
+}
+
+try {
+    doSomethingRisky()
+}
+catch (e:unknown) {
+    if (e instanceof Error) {
+        e
+    } else if (typeof e === 'string') {
+        e
+    } else {
+        console.error(e)
+    }
+}
