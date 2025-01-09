@@ -55,3 +55,34 @@ let response =
     {success: 'ok', data: []} as {success: string; data: unknown } | { error: string, code: number}
 
 val = response
+
+// ALmost Top Type : {} or Empty Object
+// Empty Object is everything minus null minus undefined
+
+const stringOrNumber : string | number = 4
+let nullableString : string | null = null
+nullableString = null
+const myObj : {
+    a? : number
+    b: string
+} = { b: 'foo'}
+
+let val2: {} = 4
+val2 = 'abc'
+val2 = new Date()
+val2 = stringOrNumber
+val2 = nullableString
+val2 = myObj.a
+
+// {} examples
+
+let withoutUndefined : {} | null = 37
+let withUndefined : {} | null | undefined = 37
+let anUnknown : unknown = '42'
+
+withoutUndefined = anUnknown    // unknown can not include undefined
+withUndefined = anUnknown
+
+type NullableStringOrNumber = string | number | null | undefined
+type StringOrNumber = NullableStringOrNumber & {}   // can use to remove nullability
+
