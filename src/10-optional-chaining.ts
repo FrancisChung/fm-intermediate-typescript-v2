@@ -38,3 +38,8 @@ function getLastPayment(data: ResponseData): number | undefined {
 
     return lastPayment.amount
 }
+
+//Optional Chaining Example
+function getLastPayment2(data: ResponseData): number | undefined {
+    return data?.customer?.lastInvoice?.lastPayment?.amount //evaluates to amount or undefined
+}
