@@ -18,3 +18,11 @@ export * as berries from "./berries'
 // Importing Types
 let x: Raspberry = {color: "red"}
 const y = new Raspberry('black')
+
+// Type Only Imports
+// Used when you need the types for type-checking and not actually instantiating it
+
+import type {Strawberry} from "./berries/strawberry"y
+
+let z:Strawberry = {color: 'red'}
+// new Strawberry()    // cant instantiate because of import type instead of import
