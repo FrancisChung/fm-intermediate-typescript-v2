@@ -22,7 +22,7 @@ const y = new Raspberry('black')
 // Type Only Imports
 // Used when you need the types for type-checking and not actually instantiating it
 
-import type {Strawberry} from "./berries/strawberry"y
+import type {Strawberry} from "./berries/strawberry"
 
 let z:Strawberry = {color: 'red'}
 // new Strawberry()    // cant instantiate because of import type instead of import
@@ -31,3 +31,12 @@ let z:Strawberry = {color: 'red'}
 import * as bananaNamespace from './banana'
 const banana = new bananaNamespace.Banana()
 banana.peel()
+
+import * as melonNamespace from './melon'
+import Melon = require('./melon')
+// Be careful with enabling esModuleInterop, as all clients will be forced to use this
+
+const melon = new Melon()
+melon.cutIntoSlices()
+
+
