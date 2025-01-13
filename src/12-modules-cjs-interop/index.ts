@@ -13,7 +13,7 @@ allBerries.Strawberry
 allBerries.Blueberry
 allBerries.Raspberry
 
-export * as berries from "./berries'
+// export * as berries from "./berries'
 
 // Importing Types
 let x: Raspberry = {color: "red"}
@@ -26,3 +26,8 @@ import type {Strawberry} from "./berries/strawberry"y
 
 let z:Strawberry = {color: 'red'}
 // new Strawberry()    // cant instantiate because of import type instead of import
+
+// CommonJS Interop
+import * as bananaNamespace from './banana'
+const banana = new bananaNamespace.Banana()
+banana.peel()
