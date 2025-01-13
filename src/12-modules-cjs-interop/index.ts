@@ -7,8 +7,6 @@ export { lemon, lime } from './citrus' // re-export
 export * as berries from './berries' //
 
 
-let x: Raspberry = {color: "red"}
-
 // Namespace imports
 import * as allBerries from './berries'
 allBerries.Strawberry
@@ -16,3 +14,7 @@ allBerries.Blueberry
 allBerries.Raspberry
 
 export * as berries from "./berries'
+
+// Importing Types
+let x: Raspberry = {color: "red"}
+const y = new Raspberry('black')
