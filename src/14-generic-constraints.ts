@@ -31,3 +31,53 @@ function listToDict<T>(
     }
     return dict
 }
+
+interface HasId {
+    id: string
+}
+
+interface Dict<T> {
+    [k: string] : T
+}
+
+function listToDictV2(list: HasId[]) : Dict<HasId> {
+    const dict: Dict<HasId> = {}
+
+    list.forEach((item) => {
+        dict[item.id] = item
+    })
+    return dict
+}
+
+const testArray = [
+    {id: 'a', color: 'green'},
+    {id: 'b', color: 'red'},
+    {id: 'c', color: 'blue'}
+]
+
+const testResult = listToDictV2(testArray)
+// testResult.a.id  //only id shows up
+
+function listToDictV3<T>(list: T[]) : Dict<T> {
+    const dict: Dict<T> = {}
+
+    list.forEach((item) => {
+        dict[item.id] = item
+    })
+    return dict
+}
+
+const testResult3 = listToDictV3(testArray)
+// testResult3.a.color //color shows up
+
+function listToDictGC<T extends HasId>(list: T[]) : Dict<T> {
+    const dict: Dict<T> = {}
+
+    list.forEach((item) => {
+        dict[item.id] = item
+    })
+    return dict
+}
+
+const testResult4 = listToDictGC(testArray)
+// testResult4.a.color
