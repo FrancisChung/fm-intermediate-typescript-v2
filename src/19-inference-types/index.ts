@@ -1,10 +1,8 @@
 import {createOrder}  from "./fruit-market"
 
 // type GetFirstArg<T> = any
-
-const prefs: GetFirstArg<typeof createOrder> = {}
-
-createOrder(prefs)
+//const prefs: GetFirstArg<typeof createOrder> = {}
+//createOrder(prefs)
 
 //
 
@@ -18,6 +16,19 @@ type inftest3 = UnwrapPromise<Promise<number>>
 
 type OneArgFn<A = any> = (firstArg: A, ... _args: any[]) => void
 
-type GetFirstArg<T extends OneArgFn>
-    = T extends OneArgFn ? string[] : never;
+//type GetFirstArg<T extends OneArgFn>
+//    = T extends OneArgFn ? string[] : never;
 
+type GetFirstArg<T extends OneArgFn>
+    = T extends OneArgFn<infer R> ? R[] : never;
+
+
+
+function foo(x: string, y:number) {
+    return null
+}
+
+type t1= GetFirstArg<typeof foo>
+
+const prefs: GetFirstArg<typeof createOrder> = {}
+createOrder(prefs)
