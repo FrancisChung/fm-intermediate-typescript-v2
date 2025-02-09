@@ -103,3 +103,73 @@ type _ReturnType
     = T extends (...args: any) => infer R
     ? R // and then return it
     : any; // otherwise return any
+
+
+//* InstanceType<T>
+/**
+ * Obtain the return type of a constructor function type
+ */
+type _InstanceType
+/**
+ * The typeParam passed in must be some subtype of a construct signature
+ */
+    <T extends abstract new (...args: any) => any>
+/**
+ * As long as `T` matches the construct signature, capture the return
+ * type in a new typeParam `R`
+ */
+    = T extends abstract new (...args: any) => infer R
+    ? R // and then return it
+    : any; // otherwise return any
+
+//* ThisParameterType<T> and OmitThisParameter<T>
+/*
+/**
+ * Extracts the type of the 'this' parameter of a function type, or 'unknown'
+ * if the function type has no 'this' parameter.
+ */
+type _ThisParameterType<T>
+    = T extends (this: infer U, ...args: never) => any
+    ? U
+    : unknown;
+/**
+ * Removes the 'this' parameter from a function type.
+ */
+type OmitThisParameter<T>
+/**
+ * If `ThisParameterType<T>` evaluates to `unknown`, it means one of two
+ * things:
+ * (1) `T` is not a call signature type
+ * (2) `T` is a call signature type, with a `this` type of `undefined`
+ *
+ * In either of these cases, we effectively short circuit, and return
+ * the `unknown`
+ */
+    = unknown extends ThisParameterType<T>
+    ? T
+    /**
+     * In this branch, we know that `T` is a call signature, with a
+     * non-undefined `this` type
+     *
+     * Here we are inferring _both_ the tuple type representing the
+     * arguments, _and_ the return type into two new typeParams, `A` and
+     * `R`, respectively
+     */
+    : T extends (...args: infer A) => infer R
+        /**
+         * Here, we are effectively reconstructing the function
+         * _without_
+         * the `this` type, using both of our `infer`red typeParams, `A`
+         * and `R`
+         */
+        ? (...args: A) => R
+        /**
+         * essentially this is an unreachable branch. It doesn't really
+         * matter what this type is
+         */
+        : T;
+
+/**/
+
+
+export default {}
