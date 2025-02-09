@@ -54,4 +54,19 @@ type PickProperties<ValueType, Keys extends keyof ValueType> = {
 
 type PartOfWindow3 = PickProperties<Window, "document" | "navigator" | "setTimeout">
 
+// Mapping Modifiers
 
+//Make all properties in T Optional
+type _Partial<T> = {
+    [P in keyof T] ?: T[P]
+}
+
+//Make all properties in T Required
+type _Required<T> = {
+    [P in keyof T]-?: T[P]
+}
+
+//Make all properties in T Readonly
+type _Readonly<T> = {
+    readonly [P in keyof T] : T[P]
+}
