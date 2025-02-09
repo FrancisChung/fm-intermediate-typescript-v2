@@ -70,3 +70,16 @@ type _Required<T> = {
 type _Readonly<T> = {
     readonly [P in keyof T] : T[P]
 }
+
+// Template literal types
+
+type ArtFeatures = 'cabin' | 'tree' | 'sunset'
+type Colors =
+    | 'darkSienna'
+    | 'sapGreen'
+    | 'titaniumWhite'
+    | 'prussianBlue'
+
+//type ArtMethodNames = `paint_${Colors}_${ArtFeatures}`
+
+//type ArtMethodNames = `paint${Capitalize<Colors>}${Capitalize<ArtFeatures>}`
