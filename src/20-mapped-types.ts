@@ -109,3 +109,22 @@ const courseWebsite = 'Frontend Masters'
 
 type ExtractMasterName<S> = S extends `${infer T} Masters` ? T : never
 let fe: ExtractMasterName<typeof courseWebsite> = 'Backend'
+
+// Filtering Properties out
+
+type DocKeys = Extract<keyof Document, `query${string}`>
+type KeyFilteredDoc = {
+    [K in DocKeys] : Document[K]
+}
+
+//Example of WHAT NOT TO DO, DONT FOLLOW THIS EXAMPLE
+// Need to filter the keys first!
+type ValueFilteredDoc = {
+    [K in keyof Document] : Document[K] extends (
+        ...args: any[]
+    ) => Element | Element[] ? Document[K] : never
+ }
+
+ function load2(doc: ValueFilteredDoc) {
+    doc.querySelector('input')
+ }
