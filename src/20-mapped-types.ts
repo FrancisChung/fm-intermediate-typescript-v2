@@ -83,3 +83,29 @@ type Colors =
 //type ArtMethodNames = `paint_${Colors}_${ArtFeatures}`
 
 //type ArtMethodNames = `paint${Capitalize<Colors>}${Capitalize<ArtFeatures>}`
+
+
+interface DataState {
+    digits: number[]
+    names: string[]
+    flags: Record<'darkMode' | 'mobile', boolean>
+}
+
+type DataSDK = {
+    // The mapped type
+    [K in keyof DataState as `set${Capitalize<K>}`]: (
+        arg: DataState[K],
+    ) => void
+}
+
+function load(dataSDK: DataSDK) {
+    dataSDK.setDigits([14])
+    dataSDK.setFlags({ darkMode: true, mobile: false })
+    dataSDK.setNames(['hello'])
+}
+
+
+const courseWebsite = 'Frontend Masters'
+
+type ExtractMasterName<S> = S extends `${infer T} Masters` ? T : never
+let fe: ExtractMasterName<typeof courseWebsite> = 'Backend'
