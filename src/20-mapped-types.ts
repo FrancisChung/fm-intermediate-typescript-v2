@@ -128,3 +128,14 @@ type ValueFilteredDoc = {
  function load2(doc: ValueFilteredDoc) {
     doc.querySelector('input')
  }
+
+ //A better approach is to filer the keys first
+type FilteredKeys<T, U> = {
+    [P in keyof T] : T[P] extends U ? P : never
+} [keyof T] & keyof T
+
+type ValueFilteredDoc2 = {
+    [K in keyof Document as Document[K] extends (
+    ...args: any[]
+    )=> Element | Element[] ? K : never] : Document[K]
+}
