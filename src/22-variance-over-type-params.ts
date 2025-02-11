@@ -165,3 +165,8 @@ prepareCookies(cookies, snackQualityCheck)
 // Strict Function Types checks for Bivariance
 // Bivariance in general is undesirable as it is unstable
 
+// If you are buildng :
+// 1) Highly Recursive Types
+// 2) Types that are used very frequently in type checking
+// Use Variance Helpers
+// The in / out parameters can speed up type checking significantly
