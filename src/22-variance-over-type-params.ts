@@ -65,7 +65,7 @@ let snackPackager: Packager<Snack> = {
 
 //Type Equivalence Check
 cookiePackager = snackPackager  //Ok
-snackPackager = cookiePackager  //Not Ok
+//snackPackager = cookiePackager  //Not Ok
 
 // Cookie is a Snack       -- is a -->
 // BUT Packager<Snack> is a Packager<Cookie>    <-- is a --
@@ -118,3 +118,50 @@ let snackProducerPackager: ProducerPackager<Snack> = {
 // ProducerPackager<Cookie> x x x x x x x  ProducerPackager<Snack>
 // ProducerPackager is invariant over its type parameter
 // Every type is implictly fn( in out T)
+
+
+// Bivariance Explained
+
+function cookieQualityCheck(cookie: Cookie): boolean {
+    return Math.random() > 0.1
+}
+
+function snackQualityCheck(snack: Snack): boolean {
+    if (snack instanceof Cookie) return cookieQualityCheck(snack)
+    else return Math.random() > 0.16            // Pretzel case
+}
+
+type PrepareFoodPackage<T> = (
+    uncheckedItems: T[],
+    qualityCheck: (arg: T) => boolean,
+) => T[]
+
+let prepareSnacks: PrepareFoodPackage<Snack> = (
+    uncheckedItems,
+    callback,
+) => uncheckedItems.filter(callback)
+
+let prepareCookies : PrepareFoodPackage<Cookie> = (
+    uncheckedItems,
+    callback,
+) => uncheckedItems.filter(callback)
+
+const cookies = [
+    new Cookie('dark'),
+    new Cookie('milk'),
+    new Cookie('white')
+]
+
+const snacks = [
+    new Pretzel(true),
+    new Cookie('milk'),
+    new Cookie('white')
+]
+
+prepareSnacks(cookies, cookieQualityCheck)  // Bivariance not allowed
+prepareSnacks(snacks, cookieQualityCheck)   // Bivariance not allowed
+prepareCookies(cookies, snackQualityCheck)
+
+// Strict Function Types checks for Bivariance
+// Bivariance in general is undesirable as it is unstable
+
