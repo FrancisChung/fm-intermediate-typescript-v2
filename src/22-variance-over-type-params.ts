@@ -42,7 +42,7 @@ snackProducer = cookieProducer  //Ok
 
 // Contravariance
 
-interface Packager<T> {
+interface Packager<in T> {
     package: (item: T) => void
 }
 
@@ -69,3 +69,52 @@ snackPackager = cookiePackager  //Not Ok
 
 // Cookie is a Snack       -- is a -->
 // BUT Packager<Snack> is a Packager<Cookie>    <-- is a --
+// Use the in keyword to describe Contravariance between 2 types
+
+/**
+ *
+ *  Contravariant behaviouur often happens if you accept your Type Parameter as an argument (Hence in keyword)
+ *  Covariant behaviour often happens if you return your Type Parameter as a return value (Hence out keyword)
+ *
+ */
+
+// Invariance
+
+interface ProducerPackager<T> {
+    produce: () => T
+    package: (item : T) => void
+}
+
+let cookieProducerPackager: ProducerPackager<Cookie> = {
+    produce() {
+        return new Cookie('dark')
+    },
+    package(arg: Cookie) {}
+}
+
+let snackProducerPackager: ProducerPackager<Snack> = {
+    produce() {
+        return Math.random() > 0.5 ?
+            new Cookie('milk') :
+            new Pretzel(true)
+    }
+    ,
+    package(item: Snack) {
+        if (item instanceof Cookie) {
+            // Package Cookie
+        } else if (item instanceof Pretzel) {
+            // Package Pretzel
+        } else {
+            // Package Misc
+        }
+    }
+}
+
+// Type Equivalence Checks
+//cookieProducerPackager = snackProducerPackager  //doesn't work
+//snackProducerPackager = cookieProducerPackager  //doesn't work
+
+// Cookie is a Snack
+// ProducerPackager<Cookie> x x x x x x x  ProducerPackager<Snack>
+// ProducerPackager is invariant over its type parameter
+// Every type is implictly fn( in out T)
