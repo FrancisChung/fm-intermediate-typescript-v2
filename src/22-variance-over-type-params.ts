@@ -16,3 +16,25 @@ class Cookie extends Snack {
         super(false)
     }
 }
+
+// Covariance
+
+interface Producer<T> {
+    produce: () => T
+}
+
+let cookieProducer : Producer<Cookie> = {
+    produce: () => new Cookie('dark')
+}
+
+let snackProducer: Producer<Snack> = {
+    produce: () => Math.random() > 0.5 ? new Cookie("milk") : new Pretzel(true)
+}
+
+
+snackProducer = cookieProducer  //Ok
+cookieProducer = snackProducer  //Not Ok
+
+// Cookie is a subtype of Snack
+// Producer(Cookie) is a subtype of Producer(Snack)
+// use keyword out to express Covariance
